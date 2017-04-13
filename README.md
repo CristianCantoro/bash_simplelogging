@@ -7,6 +7,8 @@ This library was inspired by Python's [logging][PythonLogging] module and in par
 
 It aims to be a simple library that can be used in scripts, with no dependencies. This library has been written for Bash 4.
 
+It is also a "simple" library in the sense that it does not implement a fully-fledged object-oriented frameworks as in other projects such as [Bash Infinity][BashInfinity].
+
 ## Usage
 
 ```bash
