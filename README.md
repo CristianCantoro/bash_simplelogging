@@ -123,7 +123,12 @@ The logger will print its name and the name of the scope within it has been call
 When you use the logger inside a function you can use the logger's `entry` and `return` function to signal that you are within a function:
 ```bash
 {loggername}.entry
-{loggername}.entry
+{loggername}.return
+```
+with the logger `demologger` this would be:
+```bash
+demologger.entry
+demologger.return
 ```
 
 In the following example a logger is declared with two handlers and it is used in the main scope and inside a function.
@@ -154,6 +159,8 @@ example_function 'aaa' 'bbb'
 
 demologger.info "back to main"
 ```
+
+Output:
 ```bash
 $ ./example_with_function.sh
 [2017-04-14 15:01:06][INFO    ](demologger.main)	calling example_function
