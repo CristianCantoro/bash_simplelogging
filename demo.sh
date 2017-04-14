@@ -28,11 +28,11 @@ example_function(){
     demologger1.return
 }
 
-demologger1.attach_handler 'STDOUT' 'DEBUG'
-demologger2.attach_handler 'STDOUT' 'WARNING'
+demologger1.attach_handler 'CONSOLE' 'DEBUG'
+demologger2.attach_handler 'CONSOLE' 'WARNING'
 demologger2.attach_handler '/tmp/logger.txt' 'DEBUG'
 demologger2.attach_handler '/tmp/logger2.txt' 'WARNING'
-demologger3.attach_handler 'STDOUT' 'DEBUG'
+demologger3.attach_handler 'CONSOLE' 'DEBUG'
 
 avar='this a var'
 demologger1.error "avar: $avar"
@@ -44,7 +44,7 @@ demologger1.warning 'warning message - 1'
 demologger1.error 'error message - 1'
 demologger1.critical 'critical message - 1'
 
-demologger1.attach_handler 'STDOUT' 'ERROR'
+demologger1.attach_handler 'CONSOLE' 'ERROR'
 
 demologger1.debug 'debug message - 2'
 demologger1.info 'info message - 2'
@@ -52,7 +52,7 @@ demologger1.warning 'warning message - 2'
 demologger1.error 'error message - 2'
 demologger1.critical 'critical message - 2'
 
-demologger1.attach_handler 'STDOUT' 'NOTSET'
+demologger1.attach_handler 'CONSOLE' 'NOTSET'
 
 demologger1.debug 'debug message - 3'
 demologger1.info 'info message - 3'
@@ -72,12 +72,12 @@ demologger3.debug 'debug message'
 demologger3.info 'info message'
 
 echo "--- function ---"
-demologger1.attach_handler 'STDOUT' 'DEBUG'
+demologger1.attach_handler 'CONSOLE' 'DEBUG'
 example_function 'aaa' 'bbb'
 
 echo "--- 1 ---"
 get_logger 'demologger1' 'NOTSET'
-demologger1.attach_handler 'STDOUT' 'INFO'
+demologger1.attach_handler 'CONSOLE' 'INFO'
 demologger1.debug 'debug message - 1'
 demologger1.info 'info message - 1'
 demologger1.warning 'warning message - 1'

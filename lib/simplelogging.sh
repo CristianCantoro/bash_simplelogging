@@ -150,7 +150,7 @@ function _BASH_LOGGING_write_log() {
     funcname='main'
   fi
 
-  if [[ "$handler" == 'STDOUT' ]]; then
+  if [[ "$handler" == 'CONSOLE' ]]; then
     if ! ${!skip_header_var}; then
       (>&2 echo -en "[$tstamp][$print_loglevel]($loggername.$funcname)\t" )
     else
@@ -160,8 +160,8 @@ function _BASH_LOGGING_write_log() {
     if [ "$numargs" -gt 1 ] && [[ "$msg" =~ ^'-n'* ]]; then
       eval "${skip_header_var}=false"
     fi
-
     (>&2 echo "$msg")
+
   else
     if ! ${!skip_header_var}; then
       echo -en "[$tstamp][$print_loglevel]($loggername.$funcname)\t" >> "$handler"
