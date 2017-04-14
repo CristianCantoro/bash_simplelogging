@@ -54,12 +54,12 @@ With this library you can define loggers, each logger has its own logging level.
 Sourcing `bash_simplelogging.sh` will define a function called `get_logger` the other variable and function defined in the script global scope are prefixed by `_BASH_LOGGING_` and are internals of the library that should not modified directly. This idea is borrowed directly from Python.
 
 The API of the `get_logger` function is the following:
-```
+```bash
 get_logger <name> <logging_level>
 ```
 
 For example, you can define the logger `demologger` and set its logging level to 'WARNING' with the following call:
-```
+```bash
 get_logger 'demologger' 'WARNING'
 ```
 
@@ -68,7 +68,7 @@ get_logger 'demologger' 'WARNING'
 A logger is a set of functions for each logging level. So defining a logger consists actually in defining the function that output log messages.
 
 After the definition of `demologger` as in the example above, you will obtain in the global scope the following functions:
-```
+```bash
 demologger.debug
 demologger.info
 demologger.warning
@@ -99,11 +99,11 @@ If a logger level is set to `NOTSET` it will not print anything.
 ## Handlers
 
 Each logger can output to several handlers. When created, a logger has no handlers and will not output anything. You can attach handlers calling the method `attach_handler` of the logger, whose signature is as follows:
-```
+```bash
 demologger.attach_handler <handler> <logging_level>
 ```
 as in the following examples:
-```
+```bash
 demologger.attach_handler 'CONSOLE' 'DEBUG'
 demologger.attach_handler 'logger.txt' 'DEBUG'
 ```
@@ -112,7 +112,7 @@ The handler should be a file path where the logger will write the output, if the
 Each handler has its own logging level and will output only messages of a level equal or greater of its own, this filter is in addition to the logging level defined by the logger.
 
 You can change the logging level of an handler by attach one with the same name:
-```
+```bash
 demologger.attach_handler 'CONSOLE' 'DEBUG'
 ```
 
