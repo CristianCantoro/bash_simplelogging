@@ -116,7 +116,7 @@ EOF
         numhandlers="\${#handlers[@]}"
         if [[ "\$numhandlers" > 0 ]]; then
           for handler in "\${handlers[@]}"; do
-            _BASH_LOGGING_write_log "${loggername}" "${loglllow}" "\$@" "\$handler"
+            _BASH_LOGGING_write_log "${loggername}" "${loglllow}" "\${@-}" "\$handler"
           done
         fi
         IFS="\$OLDIFS"
