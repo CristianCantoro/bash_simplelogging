@@ -61,7 +61,6 @@ get_logger <name> <logging_level>
 For example, you can define the logger `demologger` and set its logging level to 'WARNING' with the following call:
 ```
 get_logger 'demologger' 'WARNING'
-
 ```
 
 ### Loggers
