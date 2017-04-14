@@ -100,7 +100,7 @@ If a logger level is set to `NOTSET` it will not print anything.
 
 Each logger can output to several handlers. When created, a logger has no handlers and will not output anything. You can attach handlers calling the method `attach_handler` of the logger, whose signature is as follows:
 ```bash
-demologger.attach_handler <handler> <logging_level>
+{loggername}.attach_handler <handler> <logging_level>
 ```
 as in the following examples:
 ```bash
@@ -114,6 +114,64 @@ Each handler has its own logging level and will output only messages of a level 
 You can change the logging level of an handler by attach one with the same name:
 ```bash
 demologger.attach_handler 'CONSOLE' 'DEBUG'
+```
+
+### Functions
+
+The logger will print its name and the name of the scope within it has been called, assuming `main` if not otherwise specified.
+
+When you use the logger inside a function you can use the logger's `entry` and `return` function to signal that you are within a function:
+```bash
+{loggername}.entry
+{loggername}.entry
+```
+
+In the following example a logger is declared with two handlers and it is used in the main scope and inside a function.
+```bash
+cat example_with_function.sh
+```
+```bash
+#!/usr/bin/env bash
+
+source "lib/simplelogging.sh"
+
+get_logger 'demologger' 'DEBUG'
+
+example_function(){
+    demologger.entry
+    demologger.info "inside example_function"
+    demologger.debug "first: $1, second: $2"
+    demologger.warning "warning!"
+    demologger.return
+}
+
+demologger.attach_handler 'CONSOLE' 'INFO'
+demologger.attach_handler '/tmp/loggerfunc.txt' 'DEBUG'
+
+demologger.info "calling example_function"
+
+example_function 'aaa' 'bbb'
+
+demologger.info "back to main"
+```
+```bash
+$ ./example_with_function.sh
+[2017-04-14 15:01:06][INFO    ](demologger.main)	calling example_function
+[2017-04-14 15:01:06][INFO    ](demologger.example_function)	inside example_function
+[2017-04-14 15:01:06][WARNING ](demologger.example_function)	warning!
+[2017-04-14 15:01:06][INFO    ](demologger.main)	back to main
+```
+
+```bash
+$ cat /tmp/loggerfunc.txt
+[2017-04-14 15:01:06][DEBUG   ](demologger.main)	attach handler: /tmp/loggerfunc.txt (DEBUG)
+[2017-04-14 15:01:06][INFO    ](demologger.main)	calling example_function
+[2017-04-14 15:01:06][DEBUG   ](demologger.example_function)	> example_function demologger.entry
+[2017-04-14 15:01:06][INFO    ](demologger.example_function)	inside example_function
+[2017-04-14 15:01:06][DEBUG   ](demologger.example_function)	first: aaa, second: bbb
+[2017-04-14 15:01:06][WARNING ](demologger.example_function)	warning!
+[2017-04-14 15:01:06][DEBUG   ](demologger.example_function)	< example_function demologger.return
+[2017-04-14 15:01:06][INFO    ](demologger.main)	back to main
 ```
 
 [PiyushChordiaPost]: http://www.cubicrace.com/2016/03/efficient-logging-mechnism-in-shell.html  
